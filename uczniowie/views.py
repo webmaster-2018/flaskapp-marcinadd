@@ -2,9 +2,7 @@
 # quiz-orm/views.py
 
 from flask import Flask
-from flask import render_template, request, redirect, url_for, abort, flash
-from modele import *
-from forms import *
+from flask import render_template
 
 app = Flask(__name__)
 

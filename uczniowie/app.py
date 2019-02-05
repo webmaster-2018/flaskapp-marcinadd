@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 # quiz-orm/app.py
 
-from flask import g
-from modele import *
-from views import *
 import os
 
+from flask import g
+
 # konfiguracja aplikacji
+from uczniowie.modele import baza_plik, baza
+from uczniowie.views import *
+
 app.config.update(dict(
     SECRET_KEY='bardzosekretnawartosc',
     DATABASE=os.path.join(app.root_path, baza_plik),
@@ -23,6 +25,7 @@ def before_request():
 def after_request(response):
     g.db.close()
     return response
+
 
 if __name__ == '__main__':
     app.run(debug=True)

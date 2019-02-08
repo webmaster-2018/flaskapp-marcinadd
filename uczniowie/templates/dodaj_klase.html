@@ -1,0 +1,16 @@
+{% extends "szablon.html" %}
+{% block tytul_strony %}Dodja klase {% endblock %}
+{% block h1 %}Dodaj klase{% endblock %}
+{% block lead %}Tu mozesz dodac klase{% endblock %}
+{% block h2 %}Klasa {% endblock %}
+{% block tresc%}
+TREŚĆ
+<form method="POST">
+  {{ form.csrf_token }}
+  {{ form. }}<br>
+
+
+  <input class="btn btn-default" type="submit" value="Prześlij">
+</form>
+{% endblock %}
+

@@ -73,4 +73,21 @@ def edytuj_klase(klasa_id):
     flash("Zaktualizowano klasę: {}".format(form.nazwa.data))
     return redirect(url_for('index'))
 
-  return render_template('edytuj_klase.html', form=form)
+  return render_template('edytuj_klase.html', form=form, klasa=klasa)
+
+
+@app.route('/usun_klase/<int:klasa_id>', methods=['GET', 'POST'])
+def usun_klase(klasa_id):
+  klasa = get_klasa_or_404(klasa_id)
+
+  if request.method == 'POST':
+    klasa.delete_instance()
+
+    return redirect(url_for('index'))
+  return render_template('usun_klase.html', klasa=klasa)
+
+
+@app.route('/klasy')
+def klasy():
+  klasy = Klasa.select()
+  return render_template('klasy.html', klasy=klasy)

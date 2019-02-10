@@ -4,6 +4,11 @@
 {% block lead %}Edytuj klasę{% endblock %}
 {% block h2 %}Klasa {% endblock %}
 {% block tresc%}
+
+<a href="{{ url_for('usun_klase', klasa_id=klasa.id) }}">
+  <button class="btn btn-danger">Usuń</button>
+</a>
+
 <form method="POST">
   {{ form.csrf_token }}
 
@@ -18,11 +23,8 @@
   {{ form.rok_matury(class="form-control") }}<br>
 
 
-  <input class="btn btn-default" type="submit" value="Prześlij">
+  <input class="btn btn-primary" type="submit" value="Edytuj">
 </form>
-
-<button class="btn btn-danger">Usuń</button>
- 
 
 {% endblock %}
 

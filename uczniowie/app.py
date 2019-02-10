@@ -6,8 +6,7 @@ import os
 from flask import g
 
 # konfiguracja aplikacji
-from uczniowie.modele import baza_plik, baza
-from uczniowie.views import *
+from views import *
 
 app.config.update(dict(
     SECRET_KEY='bardzosekretnawartosc',

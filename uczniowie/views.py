@@ -142,3 +142,26 @@ def usun_ucznia(uczen_id):
 
     return redirect(url_for('index'))
   return render_template('usun_ucznia.html', uczen=uczen)
+
+
+@app.route('/edytuj_ucznia/<int:uczen_id>', methods=['GET', 'POST'])
+def edytuj_ucznia(uczen_id):
+  uczen = get_uczen_or_404(uczen_id)
+  form = UczenForm(imie=uczen.imie, nazwisko=uczen.nazwisko)
+
+  form.plec.choices = plec()
+  form.klasa.choices = [(klasa.id, klasa.nazwa) for klasa in Klasa.select()]
+
+  if form.validate_on_submit():
+    print(form.data)
+    k = Klasa.get_by_id(form.klasa.data)
+    uczen.imie = form.imie.data
+    uczen.nazwisko = form.nazwisko.data
+    uczen.plec = form.plec.data
+    uczen.klasa = k.id
+
+    uczen.save()
+    # flash("Zaktualizowano ucznia: {}".format(form.nazwa.data))
+    return redirect(url_for('index'))
+
+  return render_template('edytuj_ucznia.html', form=form, uczen=uczen)

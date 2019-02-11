@@ -6,7 +6,7 @@ from os import abort
 from flask import Flask, flash, redirect, url_for, request
 from flask import render_template
 
-from forms import KlasaForm
+from forms import KlasaForm, UczenForm
 from modele import *
 
 app = Flask(__name__)
@@ -86,8 +86,59 @@ def usun_klase(klasa_id):
     return redirect(url_for('index'))
   return render_template('usun_klase.html', klasa=klasa)
 
-
 @app.route('/klasy')
 def klasy():
   klasy = Klasa.select()
   return render_template('klasy.html', klasy=klasy)
+
+
+def plec():
+  return [(0, 'kobieta'), (1, 'mężczyzna')]
+
+
+@app.route("/dodaj_ucznia", methods=['GET', 'POST'])
+def dodaj_ucznia():
+  form = UczenForm()
+
+  form.plec.choices = plec()
+  form.klasa.choices = [(klasa.id, klasa.nazwa) for klasa in Klasa.select()]
+
+  if form.validate_on_submit():
+    print(form.data)
+    k = Klasa.get_by_id(form.klasa.data)
+    uczen = Uczen(imie=form.imie.data, nazwisko=form.nazwisko.data, plec=form.plec.data, klasa=k.id)
+    uczen.save()
+
+    flash("Dodano ucznia: {}".format(form.imie.data))
+    return redirect(url_for('index'))
+
+  elif request.method == 'POST':
+    pass
+    # TODO Show errrors
+    # flash_errors(form)
+  return render_template('dodaj_ucznia.html', form=form)
+
+
+@app.route('/uczniowie')
+def uczniowie():
+  uczniowie = Uczen.select()
+  return render_template('uczniowie.html', uczniowie=uczniowie)
+
+
+def get_uczen_or_404(uczen_id):
+  try:
+    uczen = Uczen.get_by_id(uczen_id)
+    return uczen
+  except Uczen.DoesNotExist:
+    abort(404)
+
+
+@app.route('/usun_ucznia/<int:uczen_id>', methods=['GET', 'POST'])
+def usun_ucznia(uczen_id):
+  uczen = get_uczen_or_404(uczen_id)
+
+  if request.method == 'POST':
+    uczen.delete_instance()
+
+    return redirect(url_for('index'))
+  return render_template('usun_ucznia.html', uczen=uczen)

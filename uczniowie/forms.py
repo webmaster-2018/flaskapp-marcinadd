@@ -2,7 +2,7 @@
 # quiz-orm/forms.py
 
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, SelectField
+from wtforms import SelectField
 from wtforms import StringField, HiddenField
 from wtforms.validators import DataRequired
 
@@ -23,6 +23,5 @@ class UczenForm(FlaskForm):
     DataRequired(message=blad1)])
   nazwisko = StringField('Nazwisko ucznia:', validators=[
     DataRequired(message=blad1)])
-  plec = BooleanField('Płeć ucznia:', validators=[
-    DataRequired(message=blad1)])
+  plec = SelectField('Płeć ucznia:', coerce=int)
   klasa = SelectField('Klasa', coerce=int)

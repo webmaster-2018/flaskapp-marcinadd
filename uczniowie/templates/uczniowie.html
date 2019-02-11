@@ -1,0 +1,26 @@
+{% extends "szablon.html" %}
+{% block tytul_strony %}List uczniow {% endblock %}
+{% block h1 %}Uczniowie{% endblock %}
+{% block lead %}{% endblock %}
+{% block h2 %}Lista Uczniow{% endblock %}
+{% block tresc%}
+
+
+<ul>
+  {% for uczen in uczniowie%}
+  <li>
+    <div>
+      Imię: {{uczen.imie}} <br>
+      Nazwisko : {{ uczen.nazwisko }} <br>
+      Płeć: {{uczen.plec}} <br>
+      Klasa: {{uczen.klasa.nazwa}} <br>
+    </div>
+
+
+  </li>
+  {% endfor %}
+</ul>
+
+
+{% endblock %}
+

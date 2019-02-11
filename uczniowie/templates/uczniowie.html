@@ -16,6 +16,14 @@
       Klasa: {{uczen.klasa.nazwa}} <br>
     </div>
 
+    <a href="{{ url_for('edytuj_ucznia', uczen_id=uczen.id) }}">
+      <button class="btn btn-success">Edytuj</button>
+    </a>
+
+    <a href="{{url_for('usun_ucznia', uczen_id=uczen.id)}}">
+      <button class="btn btn-danger">Usuń</button>
+    </a>
+
 
   </li>
   {% endfor %}

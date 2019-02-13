@@ -7,7 +7,9 @@ from peewee import *
 
 baza_plik = 'uczniowie.db'
 # MODEL
-baza = SqliteDatabase(baza_plik)
+baza = SqliteDatabase(baza_plik, pragmas={
+  'foreign_keys': 1
+})
 
 
 class BazaModel(Model):
@@ -25,7 +27,7 @@ class Uczen(BazaModel):
   imie = CharField(null=False)
   nazwisko = CharField(null=False)
   plec = IntegerField()
-  klasa = ForeignKeyField(Klasa, related_name='uczniowie')
+  klasa = ForeignKeyField(Klasa, related_name='uczniowie', on_delete='CASCADE')
 
 
 def main(args):

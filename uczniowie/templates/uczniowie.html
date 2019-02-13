@@ -5,6 +5,9 @@
 {% block h2 %}Lista Uczniow{% endblock %}
 {% block tresc%}
 
+<a href="{{ url_for('dodaj_ucznia') }}">
+  <button class="btn btn-success">Dodaj ucznia</button>
+</a>
 
 <ul>
   {% for uczen in uczniowie%}

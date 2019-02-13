@@ -40,13 +40,18 @@ def dodaj_klase():
                   rok_naboru=form.rok_naboru.data, rok_matury=form.rok_matury.data)
     klasa.save()
     flash("Dodano klasę: {}".format(form.nazwa.data))
-    return redirect(url_for('index'))
+    return redirect(url_for('klasy'))
 
   elif request.method == 'POST':
     pass
     # TODO Show errrors
     # flash_errors(form)
   return render_template('dodaj_klase.html', form=form)
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+  return render_template('404.html'), 404
 
 
 def get_klasa_or_404(klasa_id):
@@ -110,7 +115,7 @@ def dodaj_ucznia():
     uczen.save()
 
     flash("Dodano ucznia: {}".format(form.imie.data))
-    return redirect(url_for('index'))
+    return redirect(url_for('uczniowie'))
 
   elif request.method == 'POST':
     pass

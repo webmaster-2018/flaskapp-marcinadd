@@ -5,7 +5,11 @@
 {% block h2 %}Lista klas{% endblock %}
 {% block tresc%}
 
+<a href="{{ url_for('dodaj_klase') }}">
+  <button class="btn btn-success">Dodaj klasę</button>
+</a>
 
+<!--TODO Implementacja opcji dodania ucznia bezpośrednio do podanej klasy-->
 <ul>
   {% for klasa in klasy%}
   <li>

@@ -73,7 +73,7 @@ def edytuj_klase(klasa_id):
     klasa.rok_matury = form.rok_matury.data
     klasa.save()
     flash("Zaktualizowano klasę: {}".format(form.nazwa.data))
-    return redirect(url_for('index'))
+    return redirect(url_for('klasy'))
 
   return render_template('edytuj_klase.html', form=form, klasa=klasa)
 
@@ -85,7 +85,7 @@ def usun_klase(klasa_id):
   if request.method == 'POST':
     klasa.delete_instance()
 
-    return redirect(url_for('index'))
+    return redirect(url_for('klasy'))
   return render_template('usun_klase.html', klasa=klasa)
 
 
@@ -93,6 +93,16 @@ def usun_klase(klasa_id):
 def klasy():
   klasy_lista = Klasa.select()
   return render_template('klasy.html', klasy=klasy_lista)
+
+
+@app.route('/klasa/<int:klasa_id>')
+def klasa(klasa_id):
+  klasa_obj = get_object_or_404(Klasa, Klasa.id == klasa_id)
+
+  uczniowie = Uczen.select().where(Uczen.klasa == klasa_id)
+  liczba_uczniow = uczniowie.count()
+
+  return render_template('klasa.html', klasa=klasa_obj, uczniowie=uczniowie, liczba_uczniow=liczba_uczniow)
 
 
 #################################
@@ -135,7 +145,7 @@ def usun_ucznia(uczen_id):
   if request.method == 'POST':
     uczen.delete_instance()
 
-    return redirect(url_for('index'))
+    return redirect(url_for('uczniowie'))
   return render_template('usun_ucznia.html', uczen=uczen)
 
 
@@ -157,6 +167,6 @@ def edytuj_ucznia(uczen_id):
 
     uczen.save()
     # flash("Zaktualizowano ucznia: {}".format(form.nazwa.data))
-    return redirect(url_for('index'))
+    return redirect(url_for('uczniowie'))
 
   return render_template('edytuj_ucznia.html', form=form, uczen=uczen)

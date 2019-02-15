@@ -16,14 +16,14 @@ Płeć: {{ uczen.plec }}
 Klasa: {{ uczen.klasa.nazwa }}
 <br>
 
+<a href="{{url_for('uczniowie')}}">
+  <button class="btn btn-info">«Powrót do listy uczniów</button>
+</a>
+
+
 <form method="POST">
   <button class="btn btn-danger">Usuń</button>
 </form>
-
-<a href="{{ url_for('index')}}">
-  <button class="btn btn-success">Rezygnuję</button>
-</a>
-
 
 {% endblock %}
 

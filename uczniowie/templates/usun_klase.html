@@ -5,6 +5,7 @@
 {% block h2 %}Czy napewno chcesz usunąć klasę {{ klasa.nazwa }} ?{% endblock %}
 {% block tresc%}
 
+
 Dane szczegółowe:
 <br>
 Nazwa klasy: {{ klasa.nazwa }}
@@ -14,13 +15,14 @@ Rok naboru: {{ klasa.rok_naboru }}
 Rok matury: {{ klasa.rok_matury }}
 <br>
 
+<a href="{{url_for('klasy')}}">
+  <button class="btn btn-info">«Powrót do listy klas</button>
+</a>
+
 <form method="POST">
   <button class="btn btn-danger">Usuń</button>
 </form>
 
-<a href="{{ url_for('index')}}">
-  <button class="btn btn-success">Rezygnuję</button>
-</a>
 
 
 {% endblock %}

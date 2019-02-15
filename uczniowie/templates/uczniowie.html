@@ -15,7 +15,12 @@
     <div>
       Imię: {{uczen.imie}} <br>
       Nazwisko : {{ uczen.nazwisko }} <br>
-      Płeć: {{uczen.plec}} <br>
+      Płeć:
+      {% if uczen.plec == 1 %}
+      mężczyzna
+      {% else%}
+      kobieta
+      {% endif %} <br>
       Klasa: {{uczen.klasa.nazwa}} <br>
     </div>
 

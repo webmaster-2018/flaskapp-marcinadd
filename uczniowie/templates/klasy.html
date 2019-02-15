@@ -24,6 +24,10 @@
       <button class="btn btn-success">Edytuj</button>
     </a>
 
+    <a href="{{url_for('klasa', klasa_id=klasa.id)}}">
+      <button class="btn btn-info">Informacje</button>
+    </a>
+
     <a href="{{url_for('usun_klase', klasa_id=klasa.id)}}">
       <button class="btn btn-danger">Usuń</button>
     </a>

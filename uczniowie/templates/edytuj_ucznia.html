@@ -4,6 +4,12 @@
 {% block lead %}Edytowac ucznia{% endblock %}
 {% block h2 %}Uczen  {{ uczen.imie}} {{ uczen.nazwisko}} {% endblock %}
 {% block tresc%}
+
+<a href="{{url_for('uczniowie')}}">
+  <button class="btn btn-info">«Powrót do listy uczniów</button>
+</a>
+
+
 <form method="POST">
   {{ form.csrf_token }}
 
@@ -23,7 +29,7 @@
   {{ form.klasa(class="form-control") }}<br>
 
 
-  <input class="btn btn-default" type="submit" value="Prześlij">
+  <input class="btn btn-success" type="submit" value="Prześlij">
 </form>
 
 {% endblock %}

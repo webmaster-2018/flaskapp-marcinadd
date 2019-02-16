@@ -25,6 +25,7 @@ blad_nieuzupelnione_tekst = 'Nie uzupełniono wymaganych pól!'
 def nieuzupelnione_blad():
   flash(blad_nieuzupelnione_tekst, 'alert-danger')
 
+
 def lata(a, b):
   rok = datetime.now().year
   lata_lista = []
@@ -76,7 +77,8 @@ def edytuj_klase(klasa_id):
     klasa.rok_naboru = form.rok_naboru.data
     klasa.rok_matury = form.rok_matury.data
     klasa.save()
-    flash("Zaktualizowano klasę: {}".format(form.nazwa.data), 'alert-success')
+    flash("Zaktualizowano klasę: {}".format(
+      form.nazwa.data), 'alert-success')
     return redirect(url_for('klasy'))
   elif request.method == 'POST':
     nieuzupelnione_blad()
@@ -98,7 +100,7 @@ def usun_klase(klasa_id):
 
 @app.route('/klasy')
 def klasy():
-  klasy_lista = Klasa.select()
+  klasy_lista = Klasa.select().order_by(Klasa.rok_naboru, Klasa.nazwa)
   return render_template('klasy.html', klasy=klasy_lista)
 
 
@@ -106,7 +108,8 @@ def klasy():
 def klasa(klasa_id):
   klasa_obj = get_object_or_404(Klasa, Klasa.id == klasa_id)
 
-  uczniowie = Uczen.select().where(Uczen.klasa == klasa_id)
+  uczniowie = Uczen.select().order_by(
+    Uczen.nazwisko, Uczen.imie).where(Uczen.klasa == klasa_id)
   liczba_uczniow = uczniowie.count()
 
   return render_template('klasa.html', klasa=klasa_obj, uczniowie=uczniowie, liczba_uczniow=liczba_uczniow)
@@ -129,7 +132,8 @@ def dodaj_ucznia():
                   plec=form.plec.data, klasa=k.id)
     uczen.save()
 
-    flash("Dodano ucznia: {} {}".format(form.imie.data, form.nazwisko.data), 'alert-success')
+    flash("Dodano ucznia: {} {}".format(
+      form.imie.data, form.nazwisko.data), 'alert-success')
     return redirect(url_for('uczniowie'))
 
   elif request.method == 'POST':
@@ -139,7 +143,8 @@ def dodaj_ucznia():
 
 @app.route('/uczniowie')
 def uczniowie():
-  uczniowie_lista = Uczen.select()
+  uczniowie_lista = Uczen.select().order_by(
+    Uczen.klasa, Uczen.nazwisko, Uczen.imie)
   return render_template('uczniowie.html', uczniowie=uczniowie_lista)
 
 
@@ -150,7 +155,8 @@ def usun_ucznia(uczen_id):
   if request.method == 'POST':
     message = (uczen.imie, uczen.nazwisko)
     uczen.delete_instance()
-    flash("Usunięto ucznia: {} {}".format(message[0], message[1]), 'alert-success')
+    flash("Usunięto ucznia: {} {}".format(
+      message[0], message[1]), 'alert-success')
     return redirect(url_for('uczniowie'))
   return render_template('usun_ucznia.html', uczen=uczen)
 
@@ -172,7 +178,8 @@ def edytuj_ucznia(uczen_id):
     uczen.klasa = k.id
 
     uczen.save()
-    flash("Zaktualizowano ucznia: {}".format(form.nazwa.data), 'alert-success')
+    flash("Zaktualizowano ucznia: {}".format(
+      form.nazwa.data), 'alert-success')
     return redirect(url_for('uczniowie'))
   elif request.method == 'POST':
     nieuzupelnione_blad()

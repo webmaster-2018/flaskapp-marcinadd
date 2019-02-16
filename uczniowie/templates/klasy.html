@@ -1,5 +1,5 @@
 {% extends "szablon.html" %}
-{% block tytul_strony %}List klas {% endblock %}
+{% block tytul_strony %}Lista klas {% endblock %}
 {% block h1 %}Klasy{% endblock %}
 {% block lead %}{% endblock %}
 {% block h2 %}Lista klas{% endblock %}
@@ -9,12 +9,10 @@
   <button class="btn btn-success">Dodaj klasę</button>
 </a>
 
-<!--TODO Implementacja opcji dodania ucznia bezpośrednio do podanej klasy-->
 <ul>
   {% for klasa in klasy%}
   <li>
     <div>
-      Identyfikator: {{klasa.id}} <br>
       Nazwa klasy: {{klasa.nazwa}} <br>
       Rok naboru: {{klasa.rok_naboru}} <br>
       Rok matury: {{klasa.rok_matury}} <br>
